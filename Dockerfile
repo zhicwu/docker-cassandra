@@ -3,7 +3,7 @@
 #
 
 # Pull Base Image
-FROM zhicwu/docker-java:7
+FROM zhicwu/java:7
 
 # Set Maintainer Details
 MAINTAINER Zhichun Wu <zhicwu@gmail.com>
