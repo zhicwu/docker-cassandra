@@ -42,7 +42,7 @@ Tips:
 1. Edit _cluster-env.sh_ to customize cluster environment, which should be same for all nodes in a certain data center
 2. Edit _node-env.sh_ to customize node environment
 3. Edit _start_node.sh_ to customize docker start options
-3. To enable Jolokia, make changes in _node-env.sh_ to something like the following:
+3. To enable Jolokia, make changes in _node-env.sh_ like the following, restart Cassandra and connect using tools like  [hawtio](http://hawt.io/)
 ```
 JMX_REMOTE="yes"
 JOLOKIA_ENABLED="yes"
