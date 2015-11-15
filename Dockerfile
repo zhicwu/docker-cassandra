@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y cassandra="$CASSANDRA_VERSION"
 RUN sed -ri ' \
 		s/^(rpc_address:).*/\1 0.0.0.0/; \
 	' "$CASSANDRA_CONF/cassandra.yaml" \
-	&& chown -R cassandra:cassandra $CASSANDRA_CONF $CASSANDRA_DATA $CASSANDRA_LIB $CASSANDRA_LOG
+	&& chown -R cassandra:cassandra $CASSANDRA_CONF $CASSANDRA_DATA $CASSANDRA_LIB $CASSANDRA_LOG \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Setup Remote JMX
