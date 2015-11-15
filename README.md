@@ -5,12 +5,12 @@ Apache Cassandra docker image for development and testing purposes.
 ```
 ubuntu:14.04
  |
- |--- zhicwu/java:7
+ |--- zhicwu/java:8
        |
-       |--- zhicwu/cassandra:2.1.9
+       |--- zhicwu/cassandra:2.1.11
 ```
 * Official Ubuntu Trusty(14.04) docker image
-* Oracle JDK 7 latest release
+* Oracle JDK 8 latest release
 * [Apache Cassandra](http://cassandra.apache.org/) 2.1.x stable release
 * [Stratio's Cassandra Lucene Index](https://github.com/Stratio/cassandra-lucene-index)
 * [Jolokia](https://jolokia.org/) as the JMX-HTTP bridge
@@ -18,7 +18,7 @@ ubuntu:14.04
 ## How to use
 - Pull the image
 ```
-# docker pull zhicwu/cassandra:2.1.9
+# docker pull zhicwu/cassandra:2.1.11
 ```
 - Setup scripts
 ```
