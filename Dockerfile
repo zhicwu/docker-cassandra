@@ -3,13 +3,13 @@
 #
 
 # Pull Base Image
-FROM zhicwu/java:7
+FROM zhicwu/java:8
 
 # Set Maintainer Details
 MAINTAINER Zhichun Wu <zhicwu@gmail.com>
 
 # Set Environment Variables
-ENV CASSANDRA_VERSION=2.1.9 CASSANDRA_LUCENE_INDEX_VERSION=2.1.9
+ENV CASSANDRA_VERSION=2.1.11 CASSANDRA_LUCENE_INDEX_VERSION=2.1.11
 ENV CASSANDRA_CONF=/etc/cassandra CASSANDRA_LIB=/usr/share/cassandra/lib CASSANDRA_DATA=/var/lib/cassandra CASSANDRA_LOG=/var/log/cassandra
 
 #ENV MX4J_VERSION=3.0.1 MX4J_ADDRESS=0.0.0.0 MX4J_PORT=18081
