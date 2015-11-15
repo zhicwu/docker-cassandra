@@ -7,18 +7,18 @@ ubuntu:14.04
  |
  |--- zhicwu/java:8
        |
-       |--- zhicwu/cassandra:2.1.11
+       |--- zhicwu/cassandra:2.2.3
 ```
 * Official Ubuntu Trusty(14.04) docker image
 * Oracle JDK 8 latest release
-* [Apache Cassandra](http://cassandra.apache.org/) 2.1.x stable release
-* [Stratio's Cassandra Lucene Index](https://github.com/Stratio/cassandra-lucene-index)
+* [Apache Cassandra](http://cassandra.apache.org/) 2.2.x stable release
+* [Stratio's Cassandra Lucene Index](https://github.com/Stratio/cassandra-lucene-index) - only available in 2.1.x images
 * [Jolokia](https://jolokia.org/) as the JMX-HTTP bridge
 
 ## How to use
 - Pull the image
 ```
-# docker pull zhicwu/cassandra:2.1.11
+# docker pull zhicwu/cassandra:2.2.3
 ```
 - Setup scripts
 ```

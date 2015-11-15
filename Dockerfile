@@ -9,7 +9,7 @@ FROM zhicwu/java:8
 MAINTAINER Zhichun Wu <zhicwu@gmail.com>
 
 # Set Environment Variables
-ENV CASSANDRA_VERSION=2.1.11 CASSANDRA_LUCENE_INDEX_VERSION=2.1.11
+ENV CASSANDRA_VERSION=2.2.3
 ENV CASSANDRA_CONF=/etc/cassandra CASSANDRA_LIB=/usr/share/cassandra/lib CASSANDRA_DATA=/var/lib/cassandra CASSANDRA_LOG=/var/log/cassandra
 
 #ENV MX4J_VERSION=3.0.1 MX4J_ADDRESS=0.0.0.0 MX4J_PORT=18081
@@ -33,22 +33,6 @@ RUN sed -ri ' \
 		s/^(rpc_address:).*/\1 0.0.0.0/; \
 	' "$CASSANDRA_CONF/cassandra.yaml" \
 	&& chown -R cassandra:cassandra $CASSANDRA_CONF $CASSANDRA_DATA $CASSANDRA_LIB $CASSANDRA_LOG
-
-# Add Lucene Index Support
-RUN apt-get install -y zip unzip maven \
-	&& wget https://github.com/Stratio/cassandra-lucene-index/archive/branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
-	&& unzip branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
-	&& cd cassandra-lucene-index* \
-	&& mvn clean package \
-	&& cd - \
-	&& rm -f cassandra-lucene-index*/plugin/target/*-javadoc.jar \
-	&& rm -f cassandra-lucene-index*/plugin/target/*-sources.jar \
-	&& cp -f cassandra-lucene-index*/plugin/target/cassandra-lucene-index-plugin-*.jar $CASSANDRA_LIB/. \
-	&& sed -ri 's:(</configuration>).*:  <logger name="com.stratio" level="INFO"/>\n\1:' "$CASSANDRA_CONF/logback.xml"
-# there was a logback.xml file in the jar but seems no longer exists now
-RUN zip -d $CASSANDRA_LIB/cassandra-lucene-index-plugin-*.jar logback.xml || echo "* logback.xml not found in the generated assembly, which is good"
-RUN rm -rf branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip && rm -rf cassandra-lucene-index* && rm -rf ~/.m2
-RUN apt-get autoremove --purge -y zip unzip maven \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Setup Remote JMX
