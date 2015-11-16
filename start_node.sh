@@ -9,6 +9,10 @@ echo "* Load cluster environment variables from $cdir/cluster-env.sh..."
 echo "* Load node-specific environment variables from $cddir/node-env.sh..."
 . "$cdir/node-env.sh"
 
+if [ "$VERSION" = "" ]; then
+  VERSION="latest"
+fi
+
 if [ "$CLUSTER" = "" ]; then
   CLUSTER="My C* Cluster"
 fi
@@ -30,10 +34,11 @@ if [ "$RACK" = "" ]; then
 fi
 
 if [ "$DATA_DIR" = "" ]; then
-  DATA_DIR="/data"
+  DATA_DIR="${cdir}/data"
 fi
 
 echo "* Loaded environment variables:"
+echo "* - Version   = zhicwu/cassandra:$VERSION"
 echo "* - CLUSTER   = $CLUSTER"
 echo "* - SEEDS     = $SEEDS"
 echo "* - IP        = $IP"
@@ -61,4 +66,4 @@ docker run -d --name my-cassandra --net=host --memory-swap=-1 --user=cassandra \
 	-e CASSANDRA_CLUSTER_NAME="$CLUSTER" -e CASSANDRA_DC="$DC" -e CASSANDRA_RACK="$RACK" \
 	-e CASSANDRA_BROADCAST_ADDRESS="$IP" -e CASSANDRA_SEEDS="$SEEDS" \
 	-e CASSANDRA_ENDPOINT_SNITCH="GossipingPropertyFileSnitch" \
-	-v $DATA_DIR:/var/lib/cassandra:Z zhicwu/cassandra:2.1.9
+	-v $DATA_DIR:/var/lib/cassandra:Z zhicwu/cassandra:$VERSION

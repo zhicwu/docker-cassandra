@@ -7,7 +7,7 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'cassandra' ]; then
-	chown -R cassandra:cassandra /var/lib/cassandra
+	#chown -R cassandra:cassandra /var/lib/cassandra
 
 	if [ "$JMX_USERNAME" = '' ]; then
 		JMX_USERNAME="ffa"
