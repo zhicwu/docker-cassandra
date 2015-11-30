@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-CLUSTER=“Test C* Cluster"
+#!/bin/bash
+CLUSTER="Test C* Cluster"
 SEEDS="127.0.0.1"
 # DATA_DIR="/data"
 
