@@ -22,7 +22,7 @@ ubuntu:14.04
 ```
 - Setup scripts
 ```
-# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/master/start_node.sh
+# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/2.2/start_node.sh
 # chmod +x *.sh
 ```
 - Start Cassandra
