@@ -7,7 +7,7 @@ ubuntu:14.04
  |
  |--- zhicwu/java:8
        |
-       |--- zhicwu/cassandra:2.2.3
+       |--- zhicwu/cassandra:2.2.5
 ```
 * Official Ubuntu Trusty(14.04) docker image
 * Oracle JDK 8 latest release
@@ -22,7 +22,7 @@ ubuntu:14.04
 ```
 - Setup scripts
 ```
-# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/master/start_node.sh
+# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/2.2/start_node.sh
 # chmod +x *.sh
 ```
 - Start Cassandra
