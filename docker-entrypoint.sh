@@ -69,6 +69,7 @@ if [ "$1" = 'cassandra' ]; then
 		endpoint_snitch \
 		listen_address \
 		num_tokens \
+		initial_token \
 	; do
 		var="CASSANDRA_${yaml^^}"
 		val="${!var}"
