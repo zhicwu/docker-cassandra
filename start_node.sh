@@ -1,6 +1,6 @@
 #!/bin/bash
 CASSANDRA_ALIAS="my-cassandra"
-CASSANDRA_TAG="2.2"
+CASSANDRA_TAG="latest"
 CASSANDRA_UID=7878
 CASSANDRA_GID=7878
 
@@ -45,14 +45,19 @@ setup_env_vars() {
   : ${SEEDS:="127.0.0.1"}
   : ${IP:="127.0.0.1"}
   : ${DATA_DIR:="/tmp/cdata"}
+  : ${NUM_TOKENS:="256"}
+  : ${INITIAL_TOKEN:=""}
 
   info "Loaded environment variables:"
-  info "	CLUSTER   = $CLUSTER"
-  info "	SEEDS     = $SEEDS"
-  info "	IP        = $IP"
-  info "	DC        = $DC"
-  info "	RACK      = $RACK"
-  info "	DATA_DIR  = $DATA_DIR"
+  info "	CLUSTER  = $CLUSTER"
+  info "	SEEDS    = $SEEDS"
+  info "	IP       = $IP"
+  info "	DC       = $DC"
+  info "	RACK     = $RACK"
+  info "	DATA_DIR = $DATA_DIR"
+  
+  info "	NUM_TOKENS    = $NUM_TOKENS"
+  info "	INITIAL_TOKEN = $INITIAL_TOKEN"
 }
 
 setup_data_dir() {
@@ -83,6 +88,7 @@ start_cassandra() {
     --ulimit nofile=100000 --ulimit nproc=8096 --ulimit memlock=17179869184 \
     --restart=on-failure:2 -e JMX_USERNAME="$JMX_USERNAME" -e JMX_PASSWORD="$JMX_PASSWORD" \
     -e CASSANDRA_CLUSTER_NAME="$CLUSTER" -e CASSANDRA_DC="$DC" -e CASSANDRA_RACK="$RACK" \
+    -e CASSANDRA_NUM_TOKENS="$NUM_TOKENS" -e CASSANDRA_INITIAL_TOKEN="$INITIAL_TOKEN" \
     -e CASSANDRA_BROADCAST_ADDRESS="$IP" -e CASSANDRA_SEEDS="$SEEDS" \
     -e CASSANDRA_ENDPOINT_SNITCH="GossipingPropertyFileSnitch" \
     -v $DATA_DIR:/var/lib/cassandra:Z zhicwu/cassandra:$CASSANDRA_TAG

@@ -7,22 +7,22 @@ ubuntu:14.04
  |
  |--- zhicwu/java:8
        |
-       |--- zhicwu/cassandra:2.2.5
+       |--- zhicwu/cassandra:3.0.4
 ```
 * Official Ubuntu Trusty(14.04) docker image
 * Oracle JDK 8 latest release
-* [Apache Cassandra](http://cassandra.apache.org/) 2.2.x latest stable release
-* [Stratio's Cassandra Lucene Index](https://github.com/Stratio/cassandra-lucene-index) built against latest code in 2.2.x branch
+* [Apache Cassandra](http://cassandra.apache.org/) 3.0.x latest stable release
+* [Stratio's Cassandra Lucene Index](https://github.com/Stratio/cassandra-lucene-index) built against latest code in 3.0.4 branch
 * [Jolokia](https://jolokia.org/) as the JMX-HTTP bridge
 
 ## How to use
 - Pull the image
 ```
-# docker pull zhicwu/cassandra:2.2
+# docker pull zhicwu/cassandra:latest
 ```
 - Setup scripts
 ```
-# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/2.2/start_node.sh
+# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/master/start_node.sh
 # chmod +x *.sh
 ```
 - Start Cassandra
