@@ -7,7 +7,7 @@ ubuntu:14.04
  |
  |--- zhicwu/java:8
        |
-       |--- zhicwu/cassandra:3.0.4
+       |--- zhicwu/cassandra:3.0.5
 ```
 * Official Ubuntu Trusty(14.04) docker image
 * Oracle JDK 8 latest release
