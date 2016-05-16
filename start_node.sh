@@ -1,6 +1,6 @@
 #!/bin/bash
 CASSANDRA_ALIAS="my-cassandra"
-CASSANDRA_TAG="latest"
+CASSANDRA_TAG="3.5"
 CASSANDRA_UID=7878
 CASSANDRA_GID=7878
 
@@ -45,7 +45,7 @@ setup_env_vars() {
   : ${SEEDS:="127.0.0.1"}
   : ${IP:="127.0.0.1"}
   : ${DATA_DIR:="/tmp/cdata"}
-  : ${NUM_TOKENS:="256"}
+  : ${NUM_TOKENS:=""}
   : ${INITIAL_TOKEN:=""}
 
   info "Loaded environment variables:"

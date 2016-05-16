@@ -18,7 +18,7 @@ ubuntu:14.04
 ## How to use
 - Pull the image
 ```
-# docker pull zhicwu/cassandra:latest
+# docker pull zhicwu/cassandra:3.5
 ```
 - Setup scripts
 ```
