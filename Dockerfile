@@ -9,7 +9,7 @@ FROM zhicwu/java:8
 MAINTAINER Zhichun Wu <zhicwu@gmail.com>
 
 # Set Environment Variables
-ENV CASSANDRA_VERSION=3.0.4 CASSANDRA_LUCENE_INDEX_VERSION=3.0.4
+ENV CASSANDRA_VERSION=3.5 CASSANDRA_LUCENE_INDEX_VERSION=3.5.0
 ENV CASSANDRA_CONF=/etc/cassandra CASSANDRA_LIB=/usr/share/cassandra/lib CASSANDRA_DATA=/var/lib/cassandra CASSANDRA_LOG=/var/log/cassandra
 
 #ENV MX4J_VERSION=3.0.1 MX4J_ADDRESS=0.0.0.0 MX4J_PORT=18081
@@ -35,7 +35,7 @@ RUN sed -ri ' \
 
 # Add Lucene Index Support
 RUN apt-get install -y maven \
-	&& wget https://github.com/Stratio/cassandra-lucene-index/archive/branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
+	&& wget https://github.com/Stratio/cassandra-lucene-index/archive/${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
 	&& unzip branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
 	&& cd cassandra-lucene-index* \
 	&& mvn clean package \
