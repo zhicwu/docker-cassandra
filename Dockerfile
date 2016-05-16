@@ -36,9 +36,9 @@ RUN sed -ri ' \
 # Add Lucene Index Support
 RUN apt-get install -y maven \
 	&& wget https://github.com/Stratio/cassandra-lucene-index/archive/${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
-	&& unzip branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
+	&& unzip ${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
 	&& cd cassandra-lucene-index* \
-	&& mvn clean package \
+	&& mvn -DskipTests clean package \
 	&& cd - \
 	&& rm -f cassandra-lucene-index*/plugin/target/*-javadoc.jar \
 	&& rm -f cassandra-lucene-index*/plugin/target/*-sources.jar \
@@ -46,7 +46,7 @@ RUN apt-get install -y maven \
 	&& sed -ri 's:(</configuration>).*:  <logger name="com.stratio" level="INFO"/>\n\1:' "$CASSANDRA_CONF/logback.xml"
 # there was a logback.xml file in the jar but seems no longer exists now
 #RUN zip -d $CASSANDRA_LIB/cassandra-lucene-index-plugin-*.jar logback.xml || echo "* logback.xml not found in the generated assembly, which is good"
-RUN rm -rf branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip && rm -rf cassandra-lucene-index* && rm -rf ~/.m2
+RUN rm -f ${CASSANDRA_LUCENE_INDEX_VERSION}.zip && rm -rf cassandra-lucene-index* && rm -rf ~/.m2
 RUN apt-get autoremove --purge -y maven \
 	&& rm -rf /var/lib/apt/lists/*
 
