@@ -58,7 +58,7 @@ if [ "$1" = 'cassandra' ]; then
 	
 	sed -ri 's/(- seeds:) "127.0.0.1"/\1 "'"$CASSANDRA_SEEDS"'"/' "$CASSANDRA_CONF/cassandra.yaml"
 
-	# turn authentication and authorization by default
+	# turn on authentication and authorization by default
 	sed -ri 's/(authenticator:) AllowAllAuthenticator/\1 PasswordAuthenticator/' "$CASSANDRA_CONF/cassandra.yaml" 
 	sed -ri 's/(authorizer:) AllowAllAuthorizer/\1 CassandraAuthorizer/' "$CASSANDRA_CONF/cassandra.yaml"
 

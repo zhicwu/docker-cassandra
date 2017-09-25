@@ -3,13 +3,13 @@ Apache Cassandra docker image for development and testing purposes.
 
 ## What's inside
 ```
-ubuntu:14.04
+ubuntu:16.04
  |
  |--- zhicwu/java:8
        |
-       |--- zhicwu/cassandra:3.0.6
+       |--- zhicwu/cassandra:3.0.x
 ```
-* Official Ubuntu Trusty(14.04) docker image
+* Official Ubuntu Trusty(16.04) docker image
 * Oracle JDK 8 latest release
 * [Apache Cassandra](http://cassandra.apache.org/) 3.0.x latest stable release
 * [Stratio's Cassandra Lucene Index](https://github.com/Stratio/cassandra-lucene-index) built against latest code in 3.0.x branch
