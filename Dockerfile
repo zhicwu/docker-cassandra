@@ -2,6 +2,23 @@
 # This docker image is just for development and testing purpose - please do NOT use on production
 #
 
+#
+# Stage 1 - Build Lucene Index Plugin
+#
+FROM maven:3 as builder
+ENV CASSANDRA_LUCENE_INDEX_VERSION=3.0.14.0
+RUN wget https://github.com/Stratio/cassandra-lucene-index/archive/${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
+	&& unzip ${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
+	&& cd cassandra-lucene-index* \
+	&& mvn clean package \
+	&& cd - \
+	&& rm -f cassandra-lucene-index*/plugin/target/*-javadoc.jar \
+	&& rm -f cassandra-lucene-index*/plugin/target/*-sources.jar
+
+#
+# Stage 2 - Cassandra
+#
+
 # Pull Base Image
 FROM zhicwu/java:8
 
@@ -9,8 +26,7 @@ FROM zhicwu/java:8
 MAINTAINER Zhichun Wu <zhicwu@gmail.com>
 
 # Set Environment Variables
-ENV CASSANDRA_VERSION=3.0.14 CASSANDRA_LUCENE_INDEX_VERSION=3.0.14.0
-ENV CASSANDRA_CONF=/etc/cassandra CASSANDRA_LIB=/usr/share/cassandra/lib \
+ENV CASSANDRA_VERSION=3.0.14 CASSANDRA_CONF=/etc/cassandra CASSANDRA_LIB=/usr/share/cassandra/lib \
 	CASSANDRA_DATA=/var/lib/cassandra CASSANDRA_LOG=/var/log/cassandra
 
 #ENV MX4J_VERSION=3.0.1 MX4J_ADDRESS=0.0.0.0 MX4J_PORT=18081
@@ -36,20 +52,7 @@ RUN echo 'deb http://www.apache.org/dist/cassandra/debian '`echo "${CASSANDRA_VE
 	&& chown -R cassandra:cassandra $CASSANDRA_CONF $CASSANDRA_DATA $CASSANDRA_LIB $CASSANDRA_LOG
 
 # Add Lucene Index Support
-RUN apt-get update \
-	&& apt-get install -y maven \
-	&& wget https://github.com/Stratio/cassandra-lucene-index/archive/${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
-	&& unzip ${CASSANDRA_LUCENE_INDEX_VERSION}.zip \
-	&& cd cassandra-lucene-index* \
-	&& mvn clean package \
-	&& cd - \
-	&& rm -f cassandra-lucene-index*/plugin/target/*-javadoc.jar \
-	&& rm -f cassandra-lucene-index*/plugin/target/*-sources.jar \
-	&& cp -f cassandra-lucene-index*/plugin/target/cassandra-lucene-index-plugin-*.jar $CASSANDRA_LIB/. \
-	&& sed -ri 's:(</configuration>).*:  <logger name="com.stratio" level="INFO"/>\n\1:' "$CASSANDRA_CONF/logback.xml" \
-	&& rm -rf branch-${CASSANDRA_LUCENE_INDEX_VERSION}.zip && rm -rf cassandra-lucene-index* && rm -rf ~/.m2 \
-	&& apt-get autoremove --purge -y maven \
-	&& rm -rf /var/lib/apt/lists/*
+COPY --from=builder cassandra-lucene-index*/plugin/target/cassandra-lucene-index-plugin-*.jar $CASSANDRA_LIB/.
 
 # Setup Remote JMX and Add Jolokia(please use separate instance hosting hawtio for monitoring / management)
 RUN cp -f $JAVA_HOME/jre/lib/management/jmxremote.access $JAVA_HOME/jre/lib/management/jmxremote.access.bak \
