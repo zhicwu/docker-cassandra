@@ -77,6 +77,11 @@ setup_data_dir() {
     || warn "Failed to change owner of data directory - try sudo if container exited"
 }
 
+init_system() {
+  swapoff -a || echo "Failed to turn off swap"
+  sysctl -w vm.max_map_count=1048575 || echo "Failed to set vm.max_map_count"
+}
+
 start_cassandra() {
   info "Stop and remove \"$CASSANDRA_ALIAS\" if it exists and start new one"
   # stop and remove the container if it exists
@@ -99,6 +104,7 @@ start_cassandra() {
 main() {
   setup_env_vars
   setup_data_dir
+  init_system
   start_cassandra
 }
 
