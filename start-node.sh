@@ -79,7 +79,7 @@ setup_data_dir() {
 
 init_system() {
   swapoff -a || echo "Failed to turn off swap"
-  sysctl -w vm.max_map_count=1048575 || echo "Failed to set vm.max_map_count"
+  sysctl -q -w vm.max_map_count=1048575 || echo "Failed to set vm.max_map_count"
 }
 
 start_cassandra() {
@@ -90,7 +90,7 @@ start_cassandra() {
   # use --privileged=true has the potential risk of causing clock drift
   # references: http://stackoverflow.com/questions/24288616/permission-denied-on-accessing-host-directory-in-docker
   docker run -d --name="$CASSANDRA_ALIAS" --net=host --memory-swap=-1 --user=cassandra \
-    --ulimit nofile=100000 --ulimit nproc=8096 --ulimit memlock=17179869184 \
+    --ulimit nofile=100000 --ulimit nproc=32768 --ulimit memlock=17179869184 \
     --restart=on-failure:2 -e JMX_USERNAME="$JMX_USERNAME" -e JMX_PASSWORD="$JMX_PASSWORD" \
     -e CASSANDRA_CLUSTER_NAME="$CLUSTER" -e CASSANDRA_DC="$DC" -e CASSANDRA_RACK="$RACK" \
     -e CASSANDRA_NUM_TOKENS="$NUM_TOKENS" -e CASSANDRA_INITIAL_TOKEN="$INITIAL_TOKEN" \
