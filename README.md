@@ -22,7 +22,7 @@ ubuntu:16.04
 ```
 - Setup scripts
 ```
-# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/master/start_node.sh
+# wget https://raw.githubusercontent.com/zhicwu/docker-cassandra/master/start-node.sh
 # chmod +x *.sh
 ```
 - Start Cassandra
@@ -37,10 +37,10 @@ You can now use cassandra/cassandra to access the node.
 
 Tips:
 
-1. Edit _cluster-env.sh_ to customize cluster environment, which should be same for all nodes in a data center or whole cluster
-2. Edit _node-env.sh_ to customize node environment
-3. Edit _start_node.sh_ to customize docker start options
-3. To enable Jolokia, make changes in _node-env.sh_ like the following, restart Cassandra and connect using tools like  [hawtio](http://hawt.io/)
+1. Edit `cluster-env.sh` to customize cluster environment, which should be same for all nodes in a data center or whole cluster
+2. Edit `node-env.sh` to customize node environment
+3. Edit `start-node.sh` to customize docker start options
+3. To enable Jolokia, make changes in `node-env.sh` like the following, restart Cassandra and connect using tools like  [hawtio](http://hawt.io/)
 ```
 JMX_REMOTE="yes"
 JOLOKIA_ENABLED="yes"
